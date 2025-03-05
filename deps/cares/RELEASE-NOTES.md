@@ -1,42 +1,25 @@
-## c-ares version 1.29.0 - May 24 2024
+## c-ares version 1.34.4 - December 14 2024
 
-This is a feature and bugfix release.
-
-Features:
-
-* When using `ARES_OPT_EVENT_THREAD`, automatically reload system configuration
-  when network conditions change. [PR #759](https://github.com/c-ares/c-ares/pull/759)
-* Apple: reimplement DNS configuration reading to more accurately pull DNS
-  settings. [PR #750](https://github.com/c-ares/c-ares/pull/750)
-* Add observability into DNS server health via a server state callback, invoked
-  whenever a query finishes. [PR #744](https://github.com/c-ares/c-ares/pull/744)
-* Add server failover retry behavior, where failed servers are retried with
-  small probability after a minimum delay. [PR #731](https://github.com/c-ares/c-ares/pull/731)
+This is a bugfix release.
 
 Changes:
-
-* Mark `ares_channel_t *` as const in more places in the public API. [PR #758](https://github.com/c-ares/c-ares/pull/758)
+* QNX Port: Port to QNX 8, add primary config reading support, add CI build. [PR #934](https://github.com/c-ares/c-ares/pull/934), [PR #937](https://github.com/c-ares/c-ares/pull/937), [PR #938](https://github.com/c-ares/c-ares/pull/938)
 
 Bugfixes:
-
-* Due to a logic flaw dns name compression writing was not properly implemented
-  which would result in the name prefix not being written for a partial match.
-  This could cause issues in various record types such as MX records when using
-  the deprecated API.  Regression introduced in 1.28.0. [Issue #757](https://github.com/c-ares/c-ares/issues/757)
-* Revert OpenBSD `SOCK_DNS` flag, it doesn't do what the docs say it does and
-  causes c-ares to become non-functional. [PR #754](https://github.com/c-ares/c-ares/pull/754)
-* `ares_getnameinfo()`: loosen validation on `salen` parameter. [Issue #752](https://github.com/c-ares/c-ares/issues/752)
-* cmake: Android requires C99. [PR #748](https://github.com/c-ares/c-ares/pull/748)
-* `ares_queue_wait_empty()` does not honor timeout_ms >= 0. [Issue #742](https://github.com/c-ares/c-ares/pull/742)
+* Empty TXT records were not being preserved. [PR #922](https://github.com/c-ares/c-ares/pull/922)
+* docs: update deprecation notices for `ares_create_query()` and `ares_mkquery()`. [PR #910](https://github.com/c-ares/c-ares/pull/910)
+* license: some files weren't properly updated. [PR #920](https://github.com/c-ares/c-ares/pull/920)
+* Fix bind local device regression from 1.34.0. [PR #929](https://github.com/c-ares/c-ares/pull/929), [PR #931](https://github.com/c-ares/c-ares/pull/931), [PR #935](https://github.com/c-ares/c-ares/pull/935)
+* CMake: set policy version to prevent deprecation warnings. [PR #932](https://github.com/c-ares/c-ares/pull/932)
+* CMake: shared and static library names should be the same on unix platforms like autotools uses. [PR #933](https://github.com/c-ares/c-ares/pull/933)
+* Update to latest autoconf archive macros for enhanced system compatibility. [PR #936](https://github.com/c-ares/c-ares/pull/936)
 
 Thanks go to these friendly people for their efforts and contributions for this
 release:
 
 * Brad House (@bradh352)
 * Daniel Stenberg (@bagder)
-* David Hotham (@dimbleby)
-* Jiwoo Park (@jimmy-park)
-* Oliver Welsh (@oliverwelsh)
-* Volker Schlecht (@VlkrS)
-
-
+* Gregor Jasny (@gjasny)
+* @marcovsz
+* Nikolaos Chatzikonstantinou (@createyourpersonalaccount)
+* @vlasovsoft1979
